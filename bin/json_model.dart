@@ -215,13 +215,13 @@ String getType(v, Set<String> set, String current, tag) {
       if (type.toLowerCase() != current && !isBuiltInType(type)) {
         set.add('import "$type.dart"');
       }
-      return "List<${changeFirstChar(type)}>";
+      return "List<${camelCaseClassName(type)}>";
     } else if (v.startsWith(tag)) {
       var fileName = changeFirstChar(v.substring(1), false);
       if (fileName.toLowerCase() != current) {
         set.add('import "$fileName.dart"');
       }
-      return changeFirstChar(fileName);
+      return camelCaseClassName(fileName);
     } else if (v.startsWith("@")) {
       return v;
     }
