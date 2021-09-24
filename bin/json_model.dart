@@ -156,13 +156,19 @@ String parseMap(Map<String, dynamic> map, Set<String> set, bool fixed, String na
   if (fixed) {
     attrsCon.write('}');
   }
-  String className = name[0].toUpperCase() + name.substring(1);
+  String className = camelCaseClassName(name); //name[0].toUpperCase() + name.substring(1);
   if (allNestedClass.keys.contains(className) && allNestedClass[className] > 0) {
     //修改重复类名
     className += allNestedClass[className].toString();
   }
   return format(tpl, [className, attrs.toString(), className, attrsCon.toString(), className, className, className]) +
       listClass.join();
+}
+
+///Change file name to camel case class name
+String camelCaseClassName(String name) {
+  final parts = name.split('_');
+  return parts.map(changeFirstChar).join('');
 }
 
 addAttrsCon(bool fixed, StringBuffer attrs, StringBuffer attrsCon, bool nullEnable, String key, dynamic v) {
